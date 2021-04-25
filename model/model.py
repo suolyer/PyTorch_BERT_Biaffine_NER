@@ -20,7 +20,7 @@ class biaffine(nn.Module):
         self.bias_x = bias_x
         self.bias_y = bias_y
         self.out_size = out_size
-        self.U = torch.nn.Parameter(torch.Tensor(in_size + int(bias_x),out_size,in_size + int(bias_y)))
+        self.U = torch.nn.Parameter(torch.randn(in_size + int(bias_x),out_size,in_size + int(bias_y)))
         # self.U1 = self.U.view(size=(in_size + int(bias_x),-1))
         #U.shape = [in_size,out_size,in_size]  
     def forward(self, x, y):
