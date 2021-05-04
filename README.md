@@ -1,6 +1,6 @@
 
 # 概述
-1、论文复现《Named Entity Recognition as Dependency Parsing》。使用双仿射注意力机制Biaffine的思想来进行命名实体识别。<br>
+1、论文复现《[Named Entity Recognition as Dependency Parsing](https://www.aclweb.org/anthology/2020.acl-main.577.pdf)》。使用双仿射注意力机制Biaffine的思想来进行命名实体识别。<br>
 2、模型的具体思路描述可以见我的知乎。<br>
 3、训练数据来自于MSRA命名实体识别训练语料，已经做相应的修改转换。<br>
 
