@@ -91,19 +91,22 @@ def main():
                 entity_list=[]
                 
                 for k in args_index:
-                    dv = 0
-                    while text_mapping[k[0]-1+dv] == []:
-                        dv+=1
-                    start_split=text_mapping[k[0]-1+dv]
+                    try:
+                        dv = 0
+                        while text_mapping[k[0]-1+dv] == []:
+                            dv+=1
+                        start_split=text_mapping[k[0]-1+dv]
 
-                    while text_mapping[k[1]-1+dv] == []:
-                        dv+=1
-                    
-                    end_split=text_mapping[k[1]-1+dv]
+                        while text_mapping[k[1]-1+dv] == []:
+                            dv+=1
 
-                    argument=sent[start_split[0]:end_split[-1]+1]
-                    entity_type=k[2]
-                    entity_list.append({'type':entity_type,'argument':argument})
+                        end_split=text_mapping[k[1]-1+dv]
+
+                        argument=sent[start_split[0]:end_split[-1]+1]
+                        entity_type=k[2]
+                        entity_list.append({'type':entity_type,'argument':argument})
+                    except:
+                        pass
                 result={'text':sent,'entity_list':entity_list}
                 json_data=json.dumps(result,ensure_ascii=False)
                 f.write(json_data+'\n')
