@@ -31,7 +31,10 @@ def load_data(file_path):
                 for entity in entity_list:
                     entity_type = entity['type']
                     entity_argument=entity['argument']
-                    args_dict[entity_type] = entity_argument
+                    if entity_type not in args_dict.keys():
+                        args_dict[entity_type] = [entity_argument]
+                    else:
+                        args_dict[entity_type].append(entity_argument)
                 sentences.append(text)
                 arguments.append(args_dict)
         return sentences, arguments
@@ -52,11 +55,12 @@ def encoder(sentence, argument):
     span_label = [0 for i in range(args.max_length)]
     span_label = [span_label for i in range(args.max_length)]
     span_label = np.array(span_label)
-    for entity_type,arg in argument.items():
-        encode_arg = tokenizer.encode(arg)
-        start_idx = tools.search(encode_arg[1:-1], encode_sent)
-        end_idx = start_idx + len(encode_arg[1:-1]) - 1
-        span_label[start_idx, end_idx] = label2id[entity_type]+1
+    for entity_type,args in argument.items():
+        for arg in args:
+            encode_arg = tokenizer.encode(arg)
+            start_idx = tools.search(encode_arg[1:-1], encode_sent)
+            end_idx = start_idx + len(encode_arg[1:-1]) - 1
+            span_label[start_idx, end_idx] = label2id[entity_type]+1
 
     return encode_sent, token_type_ids, attention_mask, span_label, span_mask
 
